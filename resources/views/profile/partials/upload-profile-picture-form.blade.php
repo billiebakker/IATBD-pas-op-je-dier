@@ -19,11 +19,7 @@
 
         <div>
             <x-input-label for="picture" :value="__('Picture')"/>
-            <div>
-                <img
-                    src="{{ asset('storage/' . Auth::user()->profile_picture) }}"
-                    alt="Profile Picture">
-            </div>
+            <x-profile-picture />
             <x-text-input id="picture" name="picture" type="file" class="mt-1 block w-full" :value="old('profile_picture', $user->profile_picture)"
                           required autofocus autocomplete="picture"/>
             <x-input-error class="mt-2" :messages="$errors->get('picture')"/>
