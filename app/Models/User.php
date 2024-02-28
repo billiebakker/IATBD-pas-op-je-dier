@@ -18,7 +18,7 @@ class User extends Authenticatable
         return $this->hasMany(Chirp::class);
     }
 
-    public function petProfiles(): HasMany
+    public function pets(): HasMany
     {
         return $this->hasMany(Pet::class);
     }

@@ -34,7 +34,7 @@ class PetController extends Controller
     public function store(PetUpdateRequest $request): RedirectResponse
     {
         $validated = $request->validated();
-        $request->user()->petProfiles()->create($validated);
+        $request->user()->pets()->create($validated);
 
         return redirect()->route('dashboard')->with('status', 'Pet profile created :)');
     }
@@ -42,7 +42,7 @@ class PetController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Pet $petProfile)
+    public function show(Pet $pet)
     {
         //
     }
@@ -50,7 +50,7 @@ class PetController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Pet $petProfile)
+    public function edit(Pet $pet)
     {
         //
     }
@@ -58,7 +58,7 @@ class PetController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Pet $petProfile)
+    public function update(Request $request, Pet $pet)
     {
         //
     }
@@ -66,8 +66,12 @@ class PetController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Pet $petProfile)
+    public function destroy(Pet $pet): RedirectResponse
     {
-        //
+
+//        $this->authorize('delete', $pet);
+        $pet->delete();
+        return redirect(route('pets.index'));
+//        return redirect()->route('dashboard')->with('status', 'Pet profile created :)');
     }
 }
