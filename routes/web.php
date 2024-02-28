@@ -34,8 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile', [ProfileController::class, 'uploadProfilePicture'])->name('profile.uploadProfilePicture');
 });
 
-Route::middleware('auth')->group(function () {
-    Route::resource('pets', PetController::class);
-});
+Route::resource('pets', PetController::class)
+    ->middleware(['auth', 'verified']);
 
 require __DIR__ . '/auth.php';
