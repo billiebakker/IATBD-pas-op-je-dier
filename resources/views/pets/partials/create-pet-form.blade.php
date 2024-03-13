@@ -24,8 +24,18 @@
         </div>
 
         <div>
-            <x-input-label for="type" :value="__('Type')"/>
-            <x-text-input id="type" name="type" type="text" class="mt-1 block w-full" :value="old('type')" required/>
+{{--            <x-input-label for="type" :value="__('Type')"/>--}}
+            <label for="type">Animal Type</label>
+            <select name="type" id="type" class="mt-1 block w-full" required>
+                <option value="other" {{ old('type') == 'other' ? 'selected' : '' }}>Other</option>
+                <option value="dog" {{ old('type') == 'dog' ? 'selected' : '' }}>Dog</option>
+                <option value="cat" {{ old('type') == 'cat' ? 'selected' : '' }}>Cat</option>
+                <option value="bird" {{ old('type') == 'bird' ? 'selected' : '' }}>Bird</option>
+                <option value="fish" {{ old('type') == 'fish' ? 'selected' : '' }}>Fish</option>
+                <option value="reptile" {{ old('type') == 'reptile' ? 'selected' : '' }}>Reptile</option>
+                <option value="hamster" {{ old('type') == 'hamster' ? 'selected' : '' }}>Hamster</option>
+                <option value="insect" {{ old('type') == 'insect' ? 'selected' : '' }}>Insect</option>
+            </select>
             <x-input-error class="mt-2" :messages="$errors->get('type')"/>
         </div>
 

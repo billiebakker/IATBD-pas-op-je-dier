@@ -71,7 +71,7 @@ class PetController extends Controller
 
 //        $this->authorize('delete', $pet);
         $pet->delete();
-        return redirect(route('pets.index'));
+        return redirect(route('pets.index'))->with('status', 'Pet profile deleted :(');
 //        return redirect()->route('dashboard')->with('status', 'Pet profile created :)');
     }
 }
