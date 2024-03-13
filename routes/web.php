@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PetController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChirpController;
@@ -32,5 +33,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/profile', [ProfileController::class, 'uploadProfilePicture'])->name('profile.uploadProfilePicture');
 });
+
+Route::resource('pets', PetController::class)
+    ->middleware(['auth', 'verified']);
 
 require __DIR__ . '/auth.php';
