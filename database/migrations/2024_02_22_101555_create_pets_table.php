@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('breed')->nullable();
             $table->integer('age')->nullable();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->json('images')->nullable();
+            $table->string('picture')->nullable();
             $table->timestamps();
         });
     }

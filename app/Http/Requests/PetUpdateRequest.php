@@ -19,6 +19,7 @@ class PetUpdateRequest extends FormRequest
             'breed' => ['nullable', 'string', 'max:255'],
             'age' => ['nullable', 'int'],
             'description' => ['nullable', 'string', 'max:2047'],
+            'picture' => ['nullable', 'image'],
         ];
     }
 }
