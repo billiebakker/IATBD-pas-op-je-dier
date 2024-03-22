@@ -3,7 +3,10 @@
     <div class="flex-1">
         <div class="flex justify-between items-center">
             <div>
-                <span class="text-xl">{{ $pet->name }} the {{ $pet->type }}</span>
+                <span class="text-xl">{{ $pet->name }}, {{ $pet->type }}</span>
+                <span>
+                    <x-pet-picture :pet="$pet"/>
+                </span>
             </div>
             @if ($pet->user->is(auth()->user()))
                 <x-dropdown>
@@ -24,7 +27,7 @@
                             @csrf
                             @method('delete')
                             <x-dropdown-link :href="route('pets.destroy', $pet)"
-                                             onclick="event.preventdefault(); this.closest('form').submit();">
+                                             onclick="event.preventDefault(); this.closest('form').submit();">
                                 {{ __('delete') }}
                             </x-dropdown-link>
                         </form>
@@ -34,7 +37,7 @@
         </div>
         <div class="mt-4">
             @if($pet->user->is(auth()->user()))
-                <p>You own this pet</p>
+                <p><strong> You own this pet </strong></p>
             @endif
             @if($pet->breed)
                 <p><strong>breed:</strong> {{ $pet->breed }}</p>

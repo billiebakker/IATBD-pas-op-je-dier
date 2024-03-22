@@ -13,7 +13,7 @@
         @csrf
     </form>
 
-    <form method="POST" action="{{ route('pets.store') }}" class="mt-6 space-y-6">
+    <form method="POST" action="{{ route('pets.store') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
         @csrf
 
         <div>
@@ -24,7 +24,7 @@
         </div>
 
         <div>
-{{--            <x-input-label for="type" :value="__('Type')"/>--}}
+            {{--            <x-input-label for="type" :value="__('Type')"/>--}}
             <label for="type">Animal Type</label>
             <select name="type" id="type" class="mt-1 block w-full" required>
                 <option value="other" {{ old('type') == 'other' ? 'selected' : '' }}>Other</option>
@@ -49,6 +49,13 @@
             <x-input-label for="age" :value="__('Age')"/>
             <x-text-input id="age" name="age" type="number" class="mt-1 block w-full" :value="old('age')"/>
             <x-input-error class="mt-2" :messages="$errors->get('age')"/>
+        </div>
+
+        <div>
+            <x-input-label for="picture" :value="__('Picture')"/>
+            <x-text-input id="picture" name="picture" type="file" class="mt-1 block w-full"
+                          autofocus autocomplete="picture"/>
+            <x-input-error class="mt-2" :messages="$errors->get('picture')"/>
         </div>
 
         <div class="flex items-center gap-4">

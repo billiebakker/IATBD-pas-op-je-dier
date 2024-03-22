@@ -16,7 +16,7 @@ class Pet extends Model
         'breed',
         'age',
         'description',
-        'images',
+        'picture',
     ];
 
     public function user(): BelongsTo

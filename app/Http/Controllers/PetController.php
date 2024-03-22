@@ -6,6 +6,8 @@ use App\Http\Requests\PetUpdateRequest;
 use App\Models\Pet;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class PetController extends Controller
@@ -33,18 +35,29 @@ class PetController extends Controller
      */
     public function store(PetUpdateRequest $request): RedirectResponse
     {
-        $validated = $request->validated();
-        $request->user()->pets()->create($validated);
+        $user = Auth::user();
 
-        return redirect()->route('dashboard')->with('status', 'Pet profile created :)');
+        $validated = $request->validated();
+
+        if ($request->hasFile('picture')) {
+            $path = $request->file('picture')->store('pets', 'public');
+            $validated['picture'] = $path;
+        }
+
+        $user->pets()->create($validated);
+
+        return redirect()->back()->with('status', 'Pet profile created :)');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Pet $pet)
+    public function show(Pet $pet): View
     {
-        //
+        return $this->index();
+//        return view('pets.show', [
+//            'pet' => $pet,
+//        ]);
     }
 
     /**
@@ -52,15 +65,33 @@ class PetController extends Controller
      */
     public function edit(Pet $pet)
     {
-        //
+        if ($pet->user->is(Auth::user())) {
+            return view('pets.edit', [
+                'pet' => $pet,
+            ]);
+        }
+
+        return redirect()->back();
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Pet $pet)
+    public function update(Request $request, Pet $pet): RedirectResponse
     {
-        //
+        $this->authorize('update', $pet);
+
+        $pet->update($request->all());
+
+        if ($request->hasFile('picture')) {
+            $path = $request->file('picture')->store('pets', 'public');
+            $pet->update([
+                'picture' => $path,
+            ]);
+        }
+
+//        return redirect()->back()->with('status', 'Pet profile updated :)');
+        return redirect()->route('pets.index')->with('status', 'Pet profile updated :)');
     }
 
     /**
@@ -68,10 +99,16 @@ class PetController extends Controller
      */
     public function destroy(Pet $pet): RedirectResponse
     {
-
-//        $this->authorize('delete', $pet);
+        $this->authorize('delete', $pet);
         $pet->delete();
-        return redirect(route('pets.index'))->with('status', 'Pet profile deleted :(');
-//        return redirect()->route('dashboard')->with('status', 'Pet profile created :)');
+        return redirect()->back()->with('status', 'Pet profile deleted :(');
     }
+
+    public function myPets(): View
+    {
+        return view('pets.my-pets', [
+            'pets' => Auth::user()->pets()->latest()->get(),
+        ]);
+    }
+
 }
