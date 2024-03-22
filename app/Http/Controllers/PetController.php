@@ -104,4 +104,11 @@ class PetController extends Controller
         return redirect()->back()->with('status', 'Pet profile deleted :(');
     }
 
+    public function myPets(): View
+    {
+        return view('pets.my-pets', [
+            'pets' => Auth::user()->pets()->latest()->get(),
+        ]);
+    }
+
 }

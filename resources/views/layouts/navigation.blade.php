@@ -21,6 +21,9 @@
                     <x-nav-link :href="route('pets.index')" :active="request()->routeIs('pets.index')">
                         {{ __('Pets') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('pets.my-pets')" :active="request()->routeIs('pets.my-pets')">
+                        {{ __('My Pets') }}
+                    </x-nav-link>
                 </div>
             </div>
 

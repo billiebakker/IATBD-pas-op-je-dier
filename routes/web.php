@@ -37,4 +37,8 @@ Route::middleware('auth')->group(function () {
 Route::resource('pets', PetController::class)
     ->middleware(['auth', 'verified']);
 
+Route::middleware('auth')->group(function () {
+    Route::get('/my-pets', [PetController::class, 'myPets'])->name('pets.my-pets');
+});
+
 require __DIR__ . '/auth.php';
