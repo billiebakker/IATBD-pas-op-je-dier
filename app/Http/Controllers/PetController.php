@@ -54,9 +54,10 @@ class PetController extends Controller
      */
     public function show(Pet $pet): View
     {
-        return view('pets.show', [
-            'pet' => $pet,
-        ]);
+        return $this->index();
+//        return view('pets.show', [
+//            'pet' => $pet,
+//        ]);
     }
 
     /**
@@ -64,15 +65,33 @@ class PetController extends Controller
      */
     public function edit(Pet $pet)
     {
-        //
+        if ($pet->user->is(Auth::user())) {
+            return view('pets.edit', [
+                'pet' => $pet,
+            ]);
+        }
+
+        return redirect()->back();
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Pet $pet)
+    public function update(Request $request, Pet $pet): RedirectResponse
     {
-        //
+        $this->authorize('update', $pet);
+
+        $pet->update($request->all());
+
+        if ($request->hasFile('picture')) {
+            $path = $request->file('picture')->store('pets', 'public');
+            $pet->update([
+                'picture' => $path,
+            ]);
+        }
+
+//        return redirect()->back()->with('status', 'Pet profile updated :)');
+        return redirect()->route('pets.index')->with('status', 'Pet profile updated :)');
     }
 
     /**
