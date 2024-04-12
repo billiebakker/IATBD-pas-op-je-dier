@@ -23,6 +23,11 @@ class User extends Authenticatable
         return $this->hasMany(Pet::class);
     }
 
+    public function advertResponses(): HasMany
+    {
+        return $this->hasMany(AdvertResponse::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *

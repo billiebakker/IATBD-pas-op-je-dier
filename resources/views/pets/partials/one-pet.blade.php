@@ -1,7 +1,7 @@
 <div class="p-6 flex space-x-2">
 
     <div class="flex-1">
-        <div class="flex justify-between items-center">
+        <div class="flex items-center">
             <div>
                 <span class="text-xl">{{ $pet->name }}, {{ $pet->type }}</span>
                 <span>
