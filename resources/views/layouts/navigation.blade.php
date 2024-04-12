@@ -27,6 +27,9 @@
                     <x-nav-link :href="route('advert-responses.index')" :active="request()->routeIs('advert-responses.index')">
                         {{ __('Inbox') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('advert-responses.outbox')" :active="request()->routeIs('advert-responses.outbox')">
+                        {{ __('Outbox') }}
+                    </x-nav-link>
                 </div>
             </div>
 

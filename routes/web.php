@@ -42,7 +42,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('pets', PetController::class);
 });
 
-Route::resource('advert-responses', AdvertResponseController::class)
-    ->middleware(['auth', 'verified']);
+Route::middleware('auth')->group(function() {
+    Route::get('/advert-responses/outbox', [AdvertResponseController::class, 'outbox'])->name('advert-responses.outbox');
+    Route::resource('advert-responses', AdvertResponseController::class);
+});
 
 require __DIR__ . '/auth.php';
