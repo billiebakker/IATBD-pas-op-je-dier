@@ -19,6 +19,13 @@ return new class extends Migration
             $table->integer('age')->nullable();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('picture')->nullable();
+
+            $table->string('description')->nullable();
+            $table->string('city')->nullable();
+            $table->boolean('advert_active')->default(false);
+            $table->date('begin_date')->nullable();
+            $table->date('end_date')->nullable();
+
             $table->timestamps();
         });
     }
@@ -28,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pet_profiles');
+        Schema::dropIfExists('pets');
     }
 };

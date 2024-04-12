@@ -111,4 +111,11 @@ class PetController extends Controller
         ]);
     }
 
+    public function respond(Pet $pet): View
+    {
+        return view('pets.respond', [
+            'pet' => $pet,
+        ]);
+    }
+
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PetController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AdvertResponseController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChirpController;
 
@@ -34,11 +35,16 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile', [ProfileController::class, 'uploadProfilePicture'])->name('profile.uploadProfilePicture');
 });
 
-Route::resource('pets', PetController::class)
-    ->middleware(['auth', 'verified']);
-
 Route::middleware('auth')->group(function () {
+    Route::get('/pets/{pet}/respond', [PetController::class, 'respond'])->name('pets.respond');
     Route::get('/my-pets', [PetController::class, 'myPets'])->name('pets.my-pets');
+
+    Route::resource('pets', PetController::class);
+});
+
+Route::middleware('auth')->group(function() {
+    Route::get('/advert-responses/outbox', [AdvertResponseController::class, 'outbox'])->name('advert-responses.outbox');
+    Route::resource('advert-responses', AdvertResponseController::class);
 });
 
 require __DIR__ . '/auth.php';
