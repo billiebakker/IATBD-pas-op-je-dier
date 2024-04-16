@@ -22,6 +22,14 @@ class PetController extends Controller
         ]);
     }
 
+    public function myPets(): View
+    {
+        return view('pets.index', [
+            'pets' => Auth::user()->pets()->latest()->get(),
+        ]);
+    }
+
+
     /**
      * Show the form for creating a new resource.
      */
@@ -38,6 +46,12 @@ class PetController extends Controller
         $user = Auth::user();
 
         $validated = $request->validated();
+
+        if (!$request->has('advert_active')) {
+            $validated['advert_active'] = false;
+        } else {
+            $validated['advert_active'] = true;
+        }
 
         if ($request->hasFile('picture')) {
             $path = $request->file('picture')->store('pets', 'public');
@@ -90,7 +104,6 @@ class PetController extends Controller
             ]);
         }
 
-//        return redirect()->back()->with('status', 'Pet profile updated :)');
         return redirect()->route('pets.index')->with('status', 'Pet profile updated :)');
     }
 
@@ -102,13 +115,6 @@ class PetController extends Controller
         $this->authorize('delete', $pet);
         $pet->delete();
         return redirect()->back()->with('status', 'Pet profile deleted :(');
-    }
-
-    public function myPets(): View
-    {
-        return view('pets.my-pets', [
-            'pets' => Auth::user()->pets()->latest()->get(),
-        ]);
     }
 
     public function respond(Pet $pet): View
