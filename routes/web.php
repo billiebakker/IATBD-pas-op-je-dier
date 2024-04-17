@@ -29,22 +29,23 @@ Route::resource('chirps', ChirpController::class)
     ->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {
+    // profile routes
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/profile', [ProfileController::class, 'uploadProfilePicture'])->name('profile.uploadProfilePicture');
-});
 
-Route::middleware('auth')->group(function () {
+    // pet routes
     Route::get('/pets/{pet}/respond', [PetController::class, 'respond'])->name('pets.respond');
     Route::get('/my-pets', [PetController::class, 'myPets'])->name('pets.my-pets');
-
     Route::resource('pets', PetController::class);
-});
 
-Route::middleware('auth')->group(function() {
+    // advert-responses routes
     Route::get('/advert-responses/outbox', [AdvertResponseController::class, 'outbox'])->name('advert-responses.outbox');
     Route::resource('advert-responses', AdvertResponseController::class);
+
+    // pet-sitter routes
+    Route::resource('petsitter-adverts', App\Http\Controllers\PetsitterAdvertController::class);
 });
 
 require __DIR__ . '/auth.php';
