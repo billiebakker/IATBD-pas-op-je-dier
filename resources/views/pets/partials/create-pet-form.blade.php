@@ -22,7 +22,7 @@
 
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg w-full">
                 <div>
-                    <x-input-label for="name" :value="__('Name')"/>
+                    <x-input-label for="name" :value="__('Name *')"/>
                     <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
                                   :value="old('name')" required
                                   autofocus/>
@@ -30,8 +30,6 @@
                 </div>
 
                 <div>
-                    {{--            <x-input-label for="type" :value="__('Type')"/>--}}
-
                     <label for="type">Animal Type</label>
                     <select name="type" id="type" class="mt-1 block w-full" required>
                         <option value="other" {{ old('type') == 'other' ? 'selected' : '' }}>Other</option>
@@ -72,9 +70,15 @@
             </div>
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg w-full">
                 <div>
-                    <x-input-label for="description" :value="__('Description')"/>
-                    <x-text-input id="description" name="description" type="text" class="mt-1 block w-full"
-                                  :value="old('description')"/>
+                    <label for="description">{{__('Description')}}</label>
+
+                    <textarea
+                        id="description"
+                        name="description"
+                        type="text"
+                        class="mt-1 block w-full"
+                        rows="4"
+                    ></textarea>
                     <x-input-error class="mt-2" :messages="$errors->get('description')"/>
                 </div>
                 <div>
