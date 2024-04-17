@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('picture')->nullable();
 
+            $table->float('hourly_rate')->nullable();
             $table->string('description')->nullable();
             $table->string('city')->nullable();
             $table->boolean('advert_active')->default(false);

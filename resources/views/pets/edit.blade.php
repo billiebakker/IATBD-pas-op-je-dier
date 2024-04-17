@@ -68,7 +68,7 @@
 
                         <div>
                             <x-input-label for="age" :value="__('Age')"/>
-                            <x-text-input id="age" name="age" type="number" class="mt-1 block w-full"
+                            <x-text-input id="age" name="age" type="number" class="mt-1 block"
                                           :value="old('age', $pet->age )"/>
                             <x-input-error class="mt-2" :messages="$errors->get('age')"/>
                         </div>
@@ -98,6 +98,14 @@
                             <x-input-error class="mt-2" :messages="$errors->get('description')"/>
 
                         </div>
+
+                        <div>
+                            <x-input-label for="hourly_rate" :value="__('Hourly Rate')"/>
+                            $ <x-text-input id="hourly_rate" name="hourly_rate" type="number" step="0.01" class="mt-1"
+                                          :value="old('hourly_rate', $pet->hourly_rate )"/>
+                            <x-input-error class="mt-2" :messages="$errors->get('hourly_rate')"/>
+                        </div>
+
                         <div>
                             <x-input-label for="city" :value="__('City')"/>
                             <x-text-input id="city" name="city" type="text" class="mt-1 block w-full"

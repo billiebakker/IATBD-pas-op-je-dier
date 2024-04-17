@@ -17,6 +17,7 @@ class Pet extends Model
         'breed',
         'age',
         'picture',
+        'hourly_rate',
         'description',
         'city',
         'advert_active',
