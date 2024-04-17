@@ -20,7 +20,7 @@
 
         <div class="sm:p-8 mx-auto sm:px-6 lg:px-8 grid md:grid-cols-2 gap-4 w-full">
 
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg w-full">
+            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg w-full space-y-6">
                 <div>
                     <x-input-label for="name" :value="__('Name *')"/>
                     <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
@@ -31,7 +31,7 @@
 
                 <div>
                     <label for="type">Animal Type</label>
-                    <select name="type" id="type" class="mt-1 block w-full" required>
+                    <select name="type" id="type" class="mt-1 block w-full rounded-md border-gray-300" required>
                         <option value="other" {{ old('type') == 'other' ? 'selected' : '' }}>Other</option>
                         <option value="dog" {{ old('type') == 'dog' ? 'selected' : '' }}>Dog</option>
                         <option value="cat" {{ old('type') == 'cat' ? 'selected' : '' }}>Cat</option>
@@ -68,7 +68,7 @@
                 </div>
 
             </div>
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg w-full">
+            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg w-full space-y-6">
                 <div>
                     <label for="description">{{__('Description')}}</label>
 
@@ -76,7 +76,7 @@
                         id="description"
                         name="description"
                         type="text"
-                        class="mt-1 block w-full"
+                        class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                         rows="4"
                     ></textarea>
                     <x-input-error class="mt-2" :messages="$errors->get('description')"/>
@@ -98,9 +98,9 @@
 
                 <div class="mt-4">
                     <label for="advert_active" class="flex items-center">
+                        <span class="ml-2 text-sm text-gray-600">{{ __('Advertisement active?') }} &ensp;</span>
                         <input id="advert_active" name="advert_active" type="checkbox"
                                class="form-checkbox h-5 w-5 text-indigo-600">
-                        <span class="ml-2 text-sm text-gray-600">{{ __('Advertisement active?') }}</span>
                     </label>
                     <x-input-error class="mt-1" :messages="$errors->get('advert_active')"/>
                 </div>

@@ -15,7 +15,7 @@ class PetController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function allPets(): View
     {
         return view('pets.index', [
             'pets' => Pet::with('user')->latest()->get(),
@@ -29,6 +29,15 @@ class PetController extends Controller
         ]);
     }
 
+    public function index(): View
+    {
+        return view('pets.index', [
+            'pets' => Pet::with('user')
+                ->where('user_id', '!=', Auth::id())
+                ->where('advert_active', true)
+                ->latest()->get(),
+        ]);
+    }
 
     /**
      * Show the form for creating a new resource.
