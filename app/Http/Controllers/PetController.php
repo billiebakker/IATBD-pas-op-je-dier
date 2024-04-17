@@ -15,12 +15,12 @@ class PetController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function allPets(): View
-    {
-        return view('pets.index', [
-            'pets' => Pet::with('user')->latest()->get(),
-        ]);
-    }
+//    public function allPets(): View
+//    {
+//        return view('pets.index', [
+//            'pets' => Pet::with('user')->latest()->get(),
+//        ]);
+//    }
 
     public function myPets(): View
     {
@@ -86,7 +86,7 @@ class PetController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Pet $pet)
+    public function edit(Pet $pet): RedirectResponse|View
     {
         if ($pet->user->is(Auth::user())) {
             return view('pets.edit', [

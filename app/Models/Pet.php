@@ -33,9 +33,4 @@ class Pet extends Model
     {
         return $this->belongsTo(User::class);
     }
-
-    public function advertResponses(): HasMany
-    {
-        return $this->hasMany(AdvertResponse::class);
-    }
 }
