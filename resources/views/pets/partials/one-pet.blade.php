@@ -3,7 +3,7 @@
     <div class="flex-1">
         <div class="flex items-center">
             <div>
-                <span class="text-xl">{{ $pet->name }}, {{ $pet->type }}</span>
+                <span class="text-xl"> <strong>{{ $pet->name }}</strong>, {{ $pet->type }}</span>
                 <span>
                     <x-pet-picture :pet="$pet"/>
                 </span>

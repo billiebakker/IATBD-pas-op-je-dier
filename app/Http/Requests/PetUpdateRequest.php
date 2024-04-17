@@ -18,8 +18,13 @@ class PetUpdateRequest extends FormRequest
             'type' => ['required', 'string', 'max:255'],
             'breed' => ['nullable', 'string', 'max:255'],
             'age' => ['nullable', 'int'],
+            'hourly_rate' => ['nullable', 'numeric'],
             'description' => ['nullable', 'string', 'max:2047'],
             'picture' => ['nullable', 'image'],
+            'city' => ['nullable', 'string', 'max:255'],
+            'advert_active' => ['nullable'],
+            'begin_date' => ['nullable', 'date'],
+            'end_date' => ['nullable', 'date'],
         ];
     }
 }

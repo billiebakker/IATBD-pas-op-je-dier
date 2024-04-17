@@ -16,13 +16,17 @@ class Pet extends Model
         'type',
         'breed',
         'age',
-        'description',
         'picture',
-
+        'hourly_rate',
+        'description',
         'city',
         'advert_active',
         'begin_date',
         'end_date',
+    ];
+
+    protected $casts = [
+        'advert_active' => 'boolean',
     ];
 
     public function user(): BelongsTo
