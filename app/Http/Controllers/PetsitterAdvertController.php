@@ -59,7 +59,7 @@ class PetsitterAdvertController extends Controller
         if ($request->hasFile('house_pictures')) {
             $pictures = [];
             foreach ($request->file('house_pictures') as $pic) {
-                $pictures[] = $pic->store('public');
+                $pictures[] = $pic->store('house_pictures','public');
             }
             $validated['house_pictures'] = $pictures;
         }

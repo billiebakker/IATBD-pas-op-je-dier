@@ -10,14 +10,21 @@
                             <div>
                                 <span class="text-xl"> <strong>{{ $petsitterAdvert->name }}</strong></span>
                                 <span>
-                    <x-picture :source="$petsitterAdvert->picture" :alt="$petsitterAdvert->name"/>
-                </span>
+                                    <x-picture
+                                            :source="$petsitterAdvert->picture"
+                                            :alt="'picture of ' . $petsitterAdvert->name"/>
+                                </span>
                             </div>
-
                         </div>
+
                         <div class="mt-4">
-                                <p><strong>City:</strong> {{ $petsitterAdvert->city }}</p>
-                                <p><strong>Description:</strong> {{ $petsitterAdvert->description }}</p>
+                            <p><strong>City:</strong> {{ $petsitterAdvert->city }}</p>
+                            <p><strong>Description:</strong> {{ $petsitterAdvert->description }}</p>
+                            <span>
+                                @foreach( $petsitterAdvert->house_pictures as $picture)
+                                    <x-picture :source="$picture" :alt="'picture of ' . $petsitterAdvert->name . '\'s house'"/>
+                                @endforeach
+                            </span>
                         </div>
                     </div>
                 </div>

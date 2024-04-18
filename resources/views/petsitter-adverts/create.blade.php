@@ -40,12 +40,12 @@
                     <div>
                         <label for="description">{{__('Description *')}}</label>
                         <textarea
-                                id="description"
-                                name="description"
-                                type="text"
-                                class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                                rows="4"
-                        required></textarea>
+                            id="description"
+                            name="description"
+                            type="text"
+                            class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            rows="4"
+                            required></textarea>
                         <x-input-error class="mt-2" :messages="$errors->get('description')"/>
 
                     </div>
@@ -65,12 +65,13 @@
                         <x-input-error class="mt-2" :messages="$errors->get('picture')"/>
                     </div>
 
+                    {{--                    if house picture is added, display button for another house picture upload --}}
                     <div>
                         <x-input-label for="house_pictures" :value="__('House pictures')"/>
-                        <x-text-input id="house_pictures" name="house_pictures" type="file" class="mt-1 block w-full"
-                                      autofocus/>
+                        <input id="house_pictures" name="house_pictures[]" type="file" class="mt-1 block w-full" autofocus multiple>
                         <x-input-error class="mt-2" :messages="$errors->get('house_pictures')"/>
                     </div>
+
                 </div>
 
                 <div>
