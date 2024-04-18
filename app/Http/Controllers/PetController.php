@@ -77,7 +77,7 @@ class PetController extends Controller
      */
     public function show(Pet $pet): View
     {
-        return $this->index();
+//        return $this->index();
 //        return view('pets.show', [
 //            'pet' => $pet,
 //        ]);

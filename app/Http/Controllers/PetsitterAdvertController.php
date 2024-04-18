@@ -17,16 +17,22 @@ class PetsitterAdvertController extends Controller
     public function index(): View
     {
         return view('petsitter-adverts.index', [
-            'petsitterAdverts' => PetsitterAdvert::latest()->get(),
+//            'userPetsitterAdvert' => PetsitterAdvert::where('user_id', Auth::id())->get(),
+            'petsitterAdverts' =>
+                PetsitterAdvert::where('user_id', '!=', Auth::id())
+                    ->where('advert_active', true)->get(),
+            'userHasAdvert' => PetsitterAdvert::where('user_id', Auth::id())->exists(),
         ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
-        //
+        return view('petsitter-adverts.create', [
+            'userHasAdvert' => PetsitterAdvert::where('user_id', Auth::id())->exists(),
+        ]);
     }
 
     /**
@@ -38,15 +44,16 @@ class PetsitterAdvertController extends Controller
 
         $validated = $request->validated();
 
-
-        if (!$request->has('advert_active')) {
+        // advert_active swapped functionality bcuz it's draft functionality now
+        if ($request->has('advert_active')) {
             $validated['advert_active'] = false;
         } else {
             $validated['advert_active'] = true;
         }
 
         if ($request->hasFile('picture')) {
-            $validated['picture'] = $request->file('picture')->store('public');
+            $path = $request->file('picture')->store('petsitter_adverts','public');
+            $validated['picture'] = $path;
         }
 
         if ($request->hasFile('house_pictures')) {
@@ -75,22 +82,30 @@ class PetsitterAdvertController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(PetsitterAdvert $petsitterAdvert)
+    public function edit(Request $request): View
     {
         return view('petsitter-adverts.edit', [
-            'petsitterAdvert' => $petsitterAdvert,
+            'userHasAdvert' => PetsitterAdvert::where('user_id', Auth::id())->exists(),
+            'petsitterAdvert' => PetsitterAdvert::where('user_id', Auth::id())->first(),
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, PetsitterAdvert $petsitterAdvert)
+    public function update(Request $request, PetsitterAdvert $petsitterAdvert): RedirectResponse
     {
+        $this->authorize('update', $petsitterAdvert);
         $petsitterAdvert->update($request->all());
 
+
+        // actually draft functionality so logic swapped
+        $petsitterAdvert->update([
+            'advert_active' => !$request->has('advert_active'),
+        ]);
+
         if ($request->hasFile('picture')) {
-            $path = $request->file('picture')->store('public');
+            $path = $request->file('picture')->store('petsitter_adverts', 'public');
             $petsitterAdvert->update([
                 'picture' => $path,
             ]);
@@ -112,8 +127,10 @@ class PetsitterAdvertController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PetsitterAdvert $petsitterAdvert)
+    public function destroy(PetsitterAdvert $petsitterAdvert): RedirectResponse
     {
-        //
+        $this->authorize('delete', $petsitterAdvert);
+        $petsitterAdvert->delete();
+        return redirect()->route('petsitter-adverts.index')->with('success', 'Advert deleted successfully :(');
     }
 }
