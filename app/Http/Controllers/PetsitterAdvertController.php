@@ -133,4 +133,11 @@ class PetsitterAdvertController extends Controller
         $petsitterAdvert->delete();
         return redirect()->route('petsitter-adverts.index')->with('success', 'Advert deleted successfully :(');
     }
+
+    public function respond(PetsitterAdvert $petsitterAdvert): View
+    {
+        return view('petsitter-adverts.respond', [
+            'petsitterAdvert' => $petsitterAdvert,
+        ]);
+    }
 }

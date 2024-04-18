@@ -26,6 +26,15 @@
                                 @endforeach
                             </span>
                         </div>
+
+                        @if(!$petsitterAdvert->user->is(auth()->user()))
+                            <a href="{{ route('petsitter-adverts.respond', $petsitterAdvert) }}">
+                                <x-primary-button type="submit" class="btn btn-primary">
+                                    {{ __('Respond') }}
+                                </x-primary-button>
+                            </a>
+                        @endif
+
                     </div>
                 </div>
 

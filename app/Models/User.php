@@ -29,6 +29,11 @@ class User extends Authenticatable
         return $this->hasMany(AdvertResponse::class);
     }
 
+    public function petsitterAdvertResponses(): HasMany
+    {
+        return $this->hasMany(PetsitterAdvertResponse::class);
+    }
+
     public function petsitterAdvert(): HasOne
     {
         return $this->hasOne(PetsitterAdvert::class);

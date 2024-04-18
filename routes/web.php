@@ -45,7 +45,12 @@ Route::middleware('auth')->group(function () {
     Route::resource('advert-responses', AdvertResponseController::class);
 
     // pet-sitter routes
+    Route::get('/petsitter-adverts/{petsitterAdvert}/respond', [App\Http\Controllers\PetsitterAdvertController::class, 'respond'])->name('petsitter-adverts.respond');
     Route::resource('petsitter-adverts', App\Http\Controllers\PetsitterAdvertController::class);
+
+    // petsitter-advert-responses routes
+//    Route::get('/petsitter-advert-responses/outbox', [App\Http\Controllers\PetsitterAdvertResponseController::class, 'outbox'])->name('petsitter-advert-responses.outbox');
+    Route::resource('petsitter-advert-responses', App\Http\Controllers\PetsitterAdvertResponseController::class);
 });
 
 require __DIR__ . '/auth.php';
