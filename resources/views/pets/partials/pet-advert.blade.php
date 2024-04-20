@@ -39,7 +39,7 @@
         @endif
 
         <div class="mt-4">
-            @if(!$pet->user->is(auth()->user()) && $showRespondButton && $pet->advert_active)
+            @if(!$pet->user->is(auth()->user()) && Route::is('pets.index') && $pet->advert_active)
                 <a href="{{ route('pets.respond', $pet) }}">
                     <x-primary-button type="submit" class="btn btn-primary">
                         {{ __('Respond') }}

@@ -5,7 +5,7 @@
             <h2 class="text-lg font-medium text-gray-900">
                 {{ __('Responding to:') }}
             </h2>
-        @include('pets.show', ['pet' => $pet, 'showRespondButton' => false])
+        @include('pets.show', ['pet' => $pet])
 
             <p class="mt-1 text-sm text-gray-600">
                 {{ __('Add a message') }}
