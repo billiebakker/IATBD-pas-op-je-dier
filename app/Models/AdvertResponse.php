@@ -26,4 +26,9 @@ class AdvertResponse extends Model
     {
         return $this->belongsTo(Pet::class);
     }
+
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
 }

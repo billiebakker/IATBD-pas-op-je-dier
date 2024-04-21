@@ -26,4 +26,9 @@ class PetsitterAdvertResponse extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
 }

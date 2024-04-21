@@ -13,7 +13,7 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __('Messages') }}
                     </x-nav-link>
                     <x-nav-link :href="route('petsitter-adverts.index')"
                                 :active="request()->routeIs('petsitter-adverts.index')">
@@ -24,14 +24,6 @@
                     </x-nav-link>
                     <x-nav-link :href="route('pets.my-pets')" :active="request()->routeIs('pets.my-pets')">
                         {{ __('My Pets') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('advert-responses.index')"
-                                :active="request()->routeIs('advert-responses.index')">
-                        {{ __('Inbox') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('advert-responses.outbox')"
-                                :active="request()->routeIs('advert-responses.outbox')">
-                        {{ __('Outbox') }}
                     </x-nav-link>
                 </div>
             </div>

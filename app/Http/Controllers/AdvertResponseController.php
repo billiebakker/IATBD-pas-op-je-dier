@@ -80,7 +80,7 @@ class AdvertResponseController extends Controller
             'status' => 'pending',
         ]);
 
-        return redirect()->route('pets.index')->with('success', 'Your response has been sent!');
+        return redirect()->route('pets.index')->with('status', 'Your response has been sent!');
     }
 
     /**
@@ -107,11 +107,33 @@ class AdvertResponseController extends Controller
         //
     }
 
+    public function accept(AdvertResponse $advertResponse): RedirectResponse
+    {
+        $this->authorize('update', $advertResponse);
+        $advertResponse->update([
+            'status' => 'accepted',
+        ]);
+        return redirect()->back()->with('status', 'Response accepted!');
+    }
+
+    public function deny(AdvertResponse $advertResponse): RedirectResponse
+    {
+        $this->authorize('update', $advertResponse);
+        $advertResponse->update([
+            'status' => 'denied',
+        ]);
+        return redirect()->back()->with('status', 'Response declined.');
+    }
+
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(AdvertResponse $advertResponse)
+    public function destroy(AdvertResponse $advertResponse): RedirectResponse
     {
-        //
+        $this->authorize('destroy', $advertResponse);
+
+        $advertResponse->delete();
+
+        return redirect()->back()->with('status', 'Advert response deleted.');
     }
 }
