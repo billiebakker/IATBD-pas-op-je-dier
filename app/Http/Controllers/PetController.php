@@ -12,16 +12,6 @@ use Illuminate\View\View;
 
 class PetController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-//    public function allPets(): View
-//    {
-//        return view('pets.index', [
-//            'pets' => Pet::with('user')->latest()->get(),
-//        ]);
-//    }
-
     public function myPets(): View
     {
         return view('pets.index', [
@@ -29,13 +19,19 @@ class PetController extends Controller
         ]);
     }
 
-    public function index(): View
+    public function index(Request $request): View
     {
+        $query = Pet::with('user')->where('user_id', '!=', Auth::id())->where('advert_active', true);
+
+        // Check if the 'type' query parameter exists and is not empty
+        if ($request->has('type') && !empty($request->type)) {
+            $query->where('type', $request->type);
+        }
+
+        $pets = $query->latest()->get();
+
         return view('pets.index', [
-            'pets' => Pet::with('user')
-                ->where('user_id', '!=', Auth::id())
-                ->where('advert_active', true)
-                ->latest()->get(),
+            'pets' => $pets,
         ]);
     }
 
@@ -75,12 +71,9 @@ class PetController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Pet $pet): View
+    public function show(Pet $pet)
     {
-//        return $this->index();
-//        return view('pets.show', [
-//            'pet' => $pet,
-//        ]);
+        //
     }
 
     /**
