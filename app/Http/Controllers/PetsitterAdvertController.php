@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PetsitterAdvertUpdateRequest;
+use App\Models\AdvertResponse;
 use App\Models\PetsitterAdvert;
+use App\Models\PetsitterAdvertResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -123,6 +125,28 @@ class PetsitterAdvertController extends Controller
 
         return redirect()->route('petsitter-adverts.index')->with('success', 'Advert updated successfully!');
     }
+
+    public function review(Request $request, AdvertResponse $advertResponse): RedirectResponse
+    {
+        $petsitterAdvert = PetsitterAdvert::where('user_id', $advertResponse->user_id)->first();
+
+        $this->authorize('review', $petsitterAdvert);
+
+        $existingReviews = $petsitterAdvert->reviews ?? [];
+        $newReview = $request->review;
+
+        // Append the new review to the existing reviews array
+        $existingReviews[] = $newReview;
+
+        $petsitterAdvert->update([
+            'reviews' => $existingReviews,
+        ]);
+
+        $advertResponse->delete();
+
+        return redirect()->route('dashboard')->with('status', 'Review posted!');
+    }
+
 
     /**
      * Remove the specified resource from storage.

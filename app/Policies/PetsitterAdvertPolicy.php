@@ -15,13 +15,18 @@ class PetsitterAdvertPolicy
         //
     }
 
-    public function update(User $user, PetsitterAdvert $petsitterAdvert)
+    public function update(User $user, PetsitterAdvert $petsitterAdvert): bool
     {
         return $petsitterAdvert->user->is($user);
     }
 
-    public function delete(User $user, PetsitterAdvert $petsitterAdvert)
+    public function delete(User $user, PetsitterAdvert $petsitterAdvert): bool
     {
         return $petsitterAdvert->user->is($user);
+    }
+
+    public function review(User $user, PetsitterAdvert $petsitterAdvert): bool
+    {
+        return !$petsitterAdvert->user->is($user);
     }
 }

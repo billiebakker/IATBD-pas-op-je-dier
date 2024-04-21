@@ -39,8 +39,6 @@
 
         @case('accepted')
             <div class="px-4 py-2 bg-green-200 rounded font-bold">Accepted</div>
-
-            {{--            rate button--}}
             @break
 
         @case('denied')

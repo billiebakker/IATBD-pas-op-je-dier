@@ -1,7 +1,7 @@
 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg space-y-6">
     <div class="">
         <div class="px-4 py-2"
-        >Replying to your pet: <a href="/my-pets"> <strong>{{ $advertResponse->pet->name }},
+        >Replying to pet: <a href="/my-pets"> <strong>{{ $advertResponse->pet->name }},
                     {{ $advertResponse->pet->type }}</strong></a></div>
 
         <div class="bg-gray-100 p-4 rounded">
@@ -41,8 +41,23 @@
 
         @case('accepted')
             <div class="px-4 py-2 bg-green-200 rounded font-bold">Accepted</div>
-
-            {{--            rate button--}}
+            @if($advertResponse->target_user_id === Auth::id())
+                <div class="">
+                    <h2>Leave a review</h2>
+                    <form method="post" action="{{
+                route('petsitter-adverts.review', $advertResponse) }}">
+                        @csrf
+                        @method('put')
+                        <textarea
+                            class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            name="review"
+                            id="review"
+                            cols="40"
+                            rows="4"></textarea>
+                        <x-primary-button>{{__('Submit')}}</x-primary-button>
+                    </form>
+                </div>
+            @endif
             @break
 
         @case('denied')
@@ -60,8 +75,5 @@
                 {{ __('Delete') }}
             </x-danger-button>
         </form>
-    @endif
-    @if($advertResponse->petsitter_advert_id)
-
     @endif
 </div>
