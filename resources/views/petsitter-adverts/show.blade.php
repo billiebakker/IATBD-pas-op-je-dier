@@ -7,42 +7,73 @@
 
                     <div class="flex-1">
                         <div class="flex items-center">
-                            <div>
-                                <span class="text-xl"> <strong>{{ $petsitterAdvert->name }}</strong></span>
-                                <span>
+                            <div class=" mt-4 space-y-6">
+                                <div class="text-xl"><strong>{{ $petsitterAdvert->name }}</strong></div>
+                                <div>
                                     <x-picture
                                         :source="$petsitterAdvert->picture"
                                         :alt="'picture of ' . $petsitterAdvert->name"/>
-                                </span>
+                                </div>
+                                <div class="bg-gray-100 p-4 rounded w-full">
+                                    <h6 class="font-bold text-lg">
+                                        <strong>Description</strong>
+                                    </h6>
+                                    <p>
+                                        {!!nl2br($petsitterAdvert->description)!!}
+                                    </p>
+                                </div>
+
+                                <div class=" mt-4 p-4">
+                                    <p><strong>Location:</strong> {{ $petsitterAdvert->city }}</p>
+                                </div>
+
+
+                                @if(!$petsitterAdvert->user->is(auth()->user()))
+                                    <a href="{{ route('petsitter-adverts.respond', $petsitterAdvert) }}">
+                                        <x-primary-button type="submit" class="btn btn-primary">
+                                            {{ __('Respond') }}
+                                        </x-primary-button>
+                                    </a>
+                                @endif
                             </div>
                         </div>
-
-                        <div class="mt-4">
-                            <p><strong>City:</strong> {{ $petsitterAdvert->city }}</p>
-                            <p><strong>Description:</strong> {{ $petsitterAdvert->description }}</p>
-                            @if($petsitterAdvert->house_pictures)
-                                <span>
-                                @foreach( $petsitterAdvert->house_pictures as $picture)
-                                        <x-picture :source="$picture"
-                                                   :alt="'picture of ' . $petsitterAdvert->name . '\'s house'"/>
-                                    @endforeach
-                            </span>
-                            @endif
-                        </div>
-
-                        @if(!$petsitterAdvert->user->is(auth()->user()))
-                            <a href="{{ route('petsitter-adverts.respond', $petsitterAdvert) }}">
-                                <x-primary-button type="submit" class="btn btn-primary">
-                                    {{ __('Respond') }}
-                                </x-primary-button>
-                            </a>
-                        @endif
 
                     </div>
                 </div>
 
             </div>
 
+        </div>
+        <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg space-y-6">
+            <div>
+                <h6 class="font-bold text-lg"><strong>{{ $petsitterAdvert->name }}'s house</strong></h6>
+            </div>
+
+            @if($petsitterAdvert->house_pictures)
+                <div class="grid grid-cols-2 gap-4">
+                    @foreach( $petsitterAdvert->house_pictures as $picture)
+                        <x-picture :source="$picture"
+                                   :alt="'picture of ' . $petsitterAdvert->name . '\'s house'"/>
+                    @endforeach
+                </div>
+            @endif
+
+            @if($petsitterAdvert->reviews)
+
+                <div>
+                    <h6 class="font-bold text-lg">Reviews</h6>
+
+                    @foreach( $petsitterAdvert->reviews as $review)
+
+                        <div class="bg-gray-100 p-4 rounded w-full mt-4">
+                            <p>
+                                {!!nl2br($review)!!}
+                            </p>
+                        </div>
+                    @endforeach
+                </div>
+
+            @endif
         </div>
     </div>
 </div>
