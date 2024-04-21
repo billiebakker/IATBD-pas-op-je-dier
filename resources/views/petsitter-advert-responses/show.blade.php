@@ -3,13 +3,13 @@
         <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
             <div class="">
 {{--                @include('pets.partials.one-pet', ['pet' => $pet])--}}
-                {{ $advertResponse->message }}
+                {{ $petsitterAdvertResponse->message }}
             </div>
         </div>
         <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
             <div class="">
 {{--                @include('pets.partials.pet-advert', ['pet' => $pet, 'showRespondButton' => $showRespondButton])--}}
-                {{ $advertResponse->status }}
+                {{ $petsitterAdvertResponse->status }}
             </div>
         </div>
     </div>
