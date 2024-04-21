@@ -28,13 +28,13 @@
                         <h2 class="text-lg font-medium text-gray-900">Inbox </h2>
 
                         @each('advert-responses.show', $advertResponsesInbox, 'advertResponse')
-                        @each('petsitter-advert-responses.show', $petsitterAdvertResponsesInbox, 'petsitterAdvertResponse')
+                        @each('petsitter-advert-responses.show', $petsitterAdvertResponsesInbox, 'advertResponse')
 
                     </div>
                     <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg space-y-6">
                         <h2 class="text-lg font-medium text-gray-900">Outbox</h2>
                         @each('advert-responses.show', $advertResponsesOutbox, 'advertResponse')
-                        @each('petsitter-advert-responses.show', $petsitterAdvertResponsesOutbox, 'petsitterAdvertResponse')
+                        @each('petsitter-advert-responses.show', $petsitterAdvertResponsesOutbox, 'advertResponse')
                     </div>
                 </div>
             </div>

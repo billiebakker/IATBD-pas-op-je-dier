@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PetController;
 use App\Http\Controllers\PetsitterAdvertController;
+use App\Http\Controllers\PetsitterAdvertResponseController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdvertResponseController;
 use Illuminate\Support\Facades\Route;
@@ -23,10 +24,6 @@ Route::get('/', function () {
 });
 
 Route::get('dashboard', [AdvertResponseController::class, 'dashboard'])->name('dashboard')->middleware('auth', 'verified');
-//
-//Route::get('/dashboard', function () {
-//    return view('dashboard');
-//})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::resource('chirps', ChirpController::class)
     ->middleware(['auth', 'verified']);
@@ -44,7 +41,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('pets', PetController::class);
 
     // advert-responses routes
-    Route::get('/advert-responses/outbox', [AdvertResponseController::class, 'outbox'])->name('advert-responses.outbox');
+    Route::put('/advert-responses/{advertResponse}/accept', [AdvertResponseController::class, 'accept'])->name('advert-responses.accept');
+    Route::put('/advert-responses/{advertResponse}/deny', [AdvertResponseController::class, 'deny'])->name('advert-responses.deny');
     Route::resource('advert-responses', AdvertResponseController::class);
 
     // pet-sitter routes
@@ -52,8 +50,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('petsitter-adverts', PetsitterAdvertController::class);
 
     // petsitter-advert-responses routes
-//    Route::get('/petsitter-advert-responses/outbox', [App\Http\Controllers\PetsitterAdvertResponseController::class, 'outbox'])->name('petsitter-advert-responses.outbox');
-    Route::resource('petsitter-advert-responses', App\Http\Controllers\PetsitterAdvertResponseController::class);
+    Route::put('/petsitter-advert-responses/{petsitterAdvertResponse}/accept', [PetsitterAdvertResponseController::class, 'accept'])->name('petsitter-advert-responses.accept');
+    Route::put('/petsitter-advert-responses/{petsitterAdvertResponse}/deny', [PetsitterAdvertResponseController::class, 'deny'])->name('petsitter-advert-responses.deny');
+    Route::resource('petsitter-advert-responses', PetsitterAdvertResponseController::class);
 });
 
 require __DIR__ . '/auth.php';

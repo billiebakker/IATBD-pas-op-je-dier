@@ -73,11 +73,33 @@ class PetsitterAdvertResponseController extends Controller
         //
     }
 
+    public function accept(PetsitterAdvertResponse $petsitterAdvertResponse): RedirectResponse
+    {
+        $this->authorize('update', $petsitterAdvertResponse);
+
+        $petsitterAdvertResponse->update(['status' => 'accepted']);
+
+        return redirect()->back()->with('status', 'Response accepted.');
+    }
+
+    public function deny(PetsitterAdvertResponse $petsitterAdvertResponse): RedirectResponse
+    {
+        $this->authorize('update', $petsitterAdvertResponse);
+
+        $petsitterAdvertResponse->update(['status' => 'denied']);
+
+        return redirect()->back()->with('status', 'Response declined.');
+    }
+
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PetsitterAdvertResponse $petsitterAdvertResponse)
+    public function destroy(PetsitterAdvertResponse $petsitterAdvertResponse): RedirectResponse
     {
-        //
+        $this->authorize('destroy', $petsitterAdvertResponse);
+
+        $petsitterAdvertResponse->delete();
+
+        return redirect()->back()->with('status', 'Response deleted.');
     }
 }
