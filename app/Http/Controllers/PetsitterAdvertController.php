@@ -124,6 +124,24 @@ class PetsitterAdvertController extends Controller
         return redirect()->route('petsitter-adverts.index')->with('success', 'Advert updated successfully!');
     }
 
+    public function review(Request $request, PetsitterAdvert $petsitterAdvert): RedirectResponse
+    {
+        $this->authorize('review', $petsitterAdvert);
+
+        $existingReviews = $petsitterAdvert->reviews ?? [];
+        $newReview = $request->review;
+
+        // Append the new review to the existing reviews array
+        $existingReviews[] = $newReview;
+
+        $petsitterAdvert->update([
+            'reviews' => $existingReviews,
+        ]);
+
+        return redirect()->route('dashboard')->with('status', 'Review posted!');
+    }
+
+
     /**
      * Remove the specified resource from storage.
      */

@@ -47,6 +47,7 @@ Route::middleware('auth')->group(function () {
 
     // pet-sitter routes
     Route::get('/petsitter-adverts/{petsitterAdvert}/respond', [PetsitterAdvertController::class, 'respond'])->name('petsitter-adverts.respond');
+    Route::put('/petsitter-adverts/{petsitterAdvert}/review', [PetsitterAdvertController::class, 'review'])->name('petsitter-adverts.review');
     Route::resource('petsitter-adverts', PetsitterAdvertController::class);
 
     // petsitter-advert-responses routes
