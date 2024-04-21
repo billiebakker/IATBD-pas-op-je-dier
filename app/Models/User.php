@@ -5,9 +5,15 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+
+
+/**
+ * @property int $id
+ */
 
 class User extends Authenticatable
 {
@@ -26,6 +32,16 @@ class User extends Authenticatable
     public function advertResponses(): HasMany
     {
         return $this->hasMany(AdvertResponse::class);
+    }
+
+    public function petsitterAdvertResponses(): HasMany
+    {
+        return $this->hasMany(PetsitterAdvertResponse::class);
+    }
+
+    public function petsitterAdvert(): HasOne
+    {
+        return $this->hasOne(PetsitterAdvert::class);
     }
 
     /**

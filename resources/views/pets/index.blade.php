@@ -1,5 +1,6 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+
             @if(session('status'))
                 <div class="py-12">
                     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -11,16 +12,12 @@
                         </div>
                     </div>
                 </div>
-
             @endif
-        @if(Route::is('pets.my-pets'))
 
-            @include('pets.partials.create-pet-form')
-        @endif
+        @includeWhen(Route::is('pets.my-pets'), 'pets.partials.create-pet-form')
+
         <div class="mt-6 bg-white shadow-sm rounded-lg divide-y">
-            @foreach ($pets as $pet)
-                @include('pets.show', ['pet' => $pet, 'showRespondButton' => true])
-            @endforeach
+            @each('pets.show', $pets, 'pet')
         </div>
     </div>
 </x-app-layout>

@@ -15,8 +15,9 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('chirps.index')" :active="request()->routeIs('chirps.index')">
-                        {{ __('Adverts (todo)') }}
+                    <x-nav-link :href="route('petsitter-adverts.index')"
+                                :active="request()->routeIs('petsitter-adverts.index')">
+                        {{ __('Petsitters') }}
                     </x-nav-link>
                     <x-nav-link :href="route('pets.index')" :active="request()->routeIs('pets.index')">
                         {{ __('Pets') }}
@@ -24,10 +25,12 @@
                     <x-nav-link :href="route('pets.my-pets')" :active="request()->routeIs('pets.my-pets')">
                         {{ __('My Pets') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('advert-responses.index')" :active="request()->routeIs('advert-responses.index')">
+                    <x-nav-link :href="route('advert-responses.index')"
+                                :active="request()->routeIs('advert-responses.index')">
                         {{ __('Inbox') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('advert-responses.outbox')" :active="request()->routeIs('advert-responses.outbox')">
+                    <x-nav-link :href="route('advert-responses.outbox')"
+                                :active="request()->routeIs('advert-responses.outbox')">
                         {{ __('Outbox') }}
                     </x-nav-link>
                 </div>
@@ -40,7 +43,9 @@
                         <button
                             class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
 
-                            <x-profile-picture />
+                            <div class="px-3">
+                                <x-profile-picture/>
+                            </div>
                             {{Auth::user()->name}}
 
                             <div class="ms-1">

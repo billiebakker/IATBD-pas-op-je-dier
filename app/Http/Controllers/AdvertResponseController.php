@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AdvertResponse;
 use App\Models\Pet;
+use App\Models\PetsitterAdvertResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,9 +19,28 @@ class AdvertResponseController extends Controller
     {
         $user = Auth::user();
         $advertResponses = AdvertResponse::where('target_user_id', $user->id)->get();
+        $petsitterAdvertResponses = PetsitterAdvertResponse::where('target_user_id', $user->id)->get();
 
         return view('advert-responses.index', [
             'advertResponses' => $advertResponses,
+            'petsitterAdvertResponses' => $petsitterAdvertResponses,
+        ]);
+    }
+
+    public function dashboard(): View
+    {
+        $user = Auth::user();
+        $advertResponsesInbox = AdvertResponse::where('target_user_id', $user->id)->get();
+        $petsitterAdvertResponsesInbox = PetsitterAdvertResponse::where('target_user_id', $user->id)->get();
+
+        $advertResponsesOutbox = AdvertResponse::where('user_id', $user->id)->get();
+        $petsitterAdvertResponsesOutbox = PetsitterAdvertResponse::where('user_id', $user->id)->get();
+
+        return view('dashboard', [
+            'advertResponsesInbox' => $advertResponsesInbox,
+            'petsitterAdvertResponsesInbox' => $petsitterAdvertResponsesInbox,
+            'advertResponsesOutbox' => $advertResponsesOutbox,
+            'petsitterAdvertResponsesOutbox' => $petsitterAdvertResponsesOutbox,
         ]);
     }
 
@@ -28,9 +48,11 @@ class AdvertResponseController extends Controller
     {
         $user = Auth::user();
         $advertResponses = AdvertResponse::where('user_id', $user->id)->get();
+        $petsitterAdvertResponses = PetsitterAdvertResponse::where('user_id', $user->id)->get();
 
         return view('advert-responses.index', [
             'advertResponses' => $advertResponses,
+            'petsitterAdvertResponses' => $petsitterAdvertResponses,
         ]);
     }
 
