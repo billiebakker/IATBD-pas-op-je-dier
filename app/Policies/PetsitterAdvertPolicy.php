@@ -27,6 +27,6 @@ class PetsitterAdvertPolicy
 
     public function review(User $user, PetsitterAdvert $petsitterAdvert): bool
     {
-        return !$petsitterAdvert->user->is($user);
+        return $petsitterAdvert->user->is($user);
     }
 }

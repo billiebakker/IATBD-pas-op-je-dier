@@ -25,6 +25,11 @@
                     <x-nav-link :href="route('pets.my-pets')" :active="request()->routeIs('pets.my-pets')">
                         {{ __('My Pets') }}
                     </x-nav-link>
+                    @if(auth()->user()->isAdmin())
+                        <x-nav-link :href="route('admin')" :active="request()->routeIs('admin')">
+                            {{ __('Admin Dashboard') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 

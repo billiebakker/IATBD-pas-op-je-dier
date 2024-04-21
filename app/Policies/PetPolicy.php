@@ -10,7 +10,7 @@ class PetPolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user): bool
+    public function viewAny(User $user)
     {
         //
     }
@@ -18,7 +18,7 @@ class PetPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Pet $pet): bool
+    public function view(User $user, Pet $pet)
     {
         //
     }
@@ -26,7 +26,7 @@ class PetPolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(User $user)
     {
         //
     }
@@ -36,7 +36,7 @@ class PetPolicy
      */
     public function update(User $user, Pet $pet): bool
     {
-        return $pet->user()->is($user);
+        return $pet->user()->is($user) || $user->isAdmin();
     }
 
     /**
@@ -44,13 +44,13 @@ class PetPolicy
      */
     public function delete(User $user, Pet $pet): bool
     {
-        return $this->update($user, $pet);
+        return $this->update($user, $pet) || $user->isAdmin();
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Pet $pet): bool
+    public function restore(User $user, Pet $pet)
     {
         //
     }
@@ -58,7 +58,7 @@ class PetPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Pet $pet): bool
+    public function forceDelete(User $user, Pet $pet)
     {
         //
     }

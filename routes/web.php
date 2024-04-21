@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PetController;
 use App\Http\Controllers\PetsitterAdvertController;
 use App\Http\Controllers\PetsitterAdvertResponseController;
@@ -27,6 +28,10 @@ Route::get('dashboard', [AdvertResponseController::class, 'dashboard'])->name('d
 
 Route::resource('chirps', ChirpController::class)
     ->middleware(['auth', 'verified']);
+
+// admin
+Route::get('admin', [AdminController::class, 'dashboard'])->name('admin')->middleware('auth', 'verified');
+Route::post('admin/block/{user}', [AdminController::class, 'block'])->name('admin.block')->middleware('auth', 'verified');
 
 Route::middleware('auth')->group(function () {
     // profile routes
