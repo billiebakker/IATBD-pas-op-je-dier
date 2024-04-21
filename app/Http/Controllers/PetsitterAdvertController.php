@@ -128,7 +128,7 @@ class PetsitterAdvertController extends Controller
 
     public function review(Request $request, AdvertResponse $advertResponse): RedirectResponse
     {
-        $petsitterAdvert = PetsitterAdvert::where('user_id', $advertResponse->user_id)->first();
+        $petsitterAdvert = PetsitterAdvert::where('user_id', $advertResponse->target_user_id)->first();
 
         $this->authorize('review', $petsitterAdvert);
 

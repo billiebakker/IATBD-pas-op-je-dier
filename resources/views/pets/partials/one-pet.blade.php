@@ -39,5 +39,18 @@
 
             </div>
         @endif
+
+        @if(auth()->user()->isAdmin())
+            <form method="post" action="{{ route('pets.destroy', $pet) }}">
+                @csrf
+                @method('delete')
+                <x-danger-button :href="route('pets.destroy', $pet)"
+                                 onclick="event.preventDefault(); this.closest('form').submit();">
+                    {{ __('delete') }}
+                </x-danger-button>
+            </form>
+        @endif
+
+
     </div>
 </div>

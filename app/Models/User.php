@@ -44,6 +44,16 @@ class User extends Authenticatable
         return $this->hasOne(PetsitterAdvert::class);
     }
 
+    public function isAdmin(): bool
+    {
+        return $this->is_admin;
+    }
+
+    public function isBanned(): bool
+    {
+        return $this->is_banned;
+    }
+
     /**
      * The attributes that are mass assignable.
      *

@@ -97,6 +97,12 @@ class PetController extends Controller
     {
         $this->authorize('update', $pet);
 
+        if (!$request->has('advert_active')) {
+            $request['advert_active'] = false;
+        } else {
+            $request['advert_active'] = true;
+        }
+
         $pet->update($request->all());
 
         if ($request->hasFile('picture')) {
@@ -106,7 +112,7 @@ class PetController extends Controller
             ]);
         }
 
-        return redirect()->route('pets.index')->with('status', 'Pet profile updated :)');
+        return redirect()->route('pets.my-pets')->with('status', 'Pet profile updated :)');
     }
 
     /**
